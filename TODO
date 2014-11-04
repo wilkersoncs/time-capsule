@@ -1,0 +1,6 @@
+TO DO List
+==========
+
++ Provide a way to mount a USB device as a separate file system since TimeMachine will use the whole disk for backups
+
++ Apple file server specific changes?

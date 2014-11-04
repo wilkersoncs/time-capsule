@@ -1,104 +1,14 @@
-TurnKey Core - Common Base for All Appliances
+vTimeCapsule - Apple File server recognized as TimeMachine drive
 =============================================
 
-The common base system on top of which all TurnKey Linux appliances are
-built. It includes custom automated backup and migration software, a web
-management interface, automatic daily security updates, live installer,
-configuration console, and all other common features. Take a look at
-some `screenshots`_.
+TurnKey Linux Core appliance modified to accept the Apple File storage Protocol (AFP) and also recognized by the Apple TimeMachine client as a TimeCapsule. 
 
-Features:
+vTimeCapsule includes all the standard features in `TurnKey Core`_, and on
+top of that:
 
-- **Base distribution**: Debian 7.2 (Wheezy).
-- **Build formats**: Deploys on bare metal, virtual machines (e.g.,
-  OpenStack, VMWare, VirtualBox, OpenVZ, KVM, Xen) and in the cloud.
-   
-   - `ISO images`_: Generic installable Live CD. Installs anywhere.
-   - `Virtual Machine images`_: Optimized for virtualized hardware,
-     pre-installed and ready to run.
-   - `Amazon Machine Image (AMI)`_: Best launched via the `TurnKey
-     Hub`_.
+- Support for Apple File storage Protocol (AFP)
+- Recognized by the Apple TimeMachine client as a TimeCapsule
+- Potentially much more resilient that the original physical, single disk, version due to the virtue of the Target Platform. The Target Platform could be anything that the TurnKeyLinux Appliance can call home: a Scale Computing HC3 cluster, A Nimmbox cluster, or your traditional VmWare ESX cluster.
+-  The TurnKey Linux VM can then either be replicated to a second cluster of your choice using internal features of that platform, or it can be conveniently backed up to the TurnKey HUB cloud backup service: tklbam. 
 
-- **Smart backups** (`TKLBAM`_): Automated backup and restore, with
-  system migration capabilities.
-- **Secure and easy to maintain**: `Auto-updated`_ daily with latest
-  security patches.
-- **Dynamic DNS** (`HubDNS`_): Associates your IP with a custom domain
-  or the free \*.tklapp.com domain.
-- **Logical Volume Management** (`LVM`_): Instead of installing to a
-  fixed size partition, a Logical Volume is first created by default,
-  and this may later be expanded, even across multiple physical devices.
-- **AJAX web shell** (`shellinabox`_) - secure command line access from
-  any web browser.
-- **Web management interface** (`Webmin`_):
-   
-   - Listens on port 12321 (uses SSL).
-   - Mac OS X themed.
-   - Network modules:
-      
-      - Firewall configuration (with example configuration).
-      - Network configuration.
-
-   -  System modules:
-      
-      - Backup and migration (TKLBAM).
-      - Configure time, date and timezone.
-      - Configure users and groups.
-      - Manage software packages.
-      - Change passwords.
-      - System logs.
-
-   -  Tool modules:
-      
-      - Text editor.
-      - Shell commands.
-      - Simple file upload/download.
-      - File manager (needs support for Java in browser).
-      - Custom commands.
-
-   -  Hardware modules:
-      
-      - Partitions on local disks.
-      - Logical volume management.
-
-- **Simple configuration console** (`confconsole`_):
-   
-   - Displays basic usage information.
-   - Configure networking.
-
-- **First boot initialization** (`inithooks`_):
-   
-   - Prompt user for passwords.
-   - Regenerates SSL and SSH cryptographic keys.
-   - Installs latest security updates, unless user chooses to defer this
-     for later.
-
-- **Command line power tools**
-   
-   - Smart, programmable bash shell completion: helps you get more done
-     with fewer keystrokes.
-   - Support for $HOME/.bashrc.d `shell hooks`_
-   - Persistent environment variables (see $HOME/.bashrc.d/penv)::
-
-        penv-set pydoc /usr/share/doc/python2.6/html
-        exit
-        # later...
-        cd $pydoc
-
-- **Automatic time synchronization with NTP**
-
-.. _screenshots: http://www.turnkeylinux.org/screenshots/148
-.. _ISO images: http://www.turnkeylinux.org/docs/builds#iso
-.. _Virtual Machine images: http://www.turnkeylinux.org/docs/builds#vm
-.. _Amazon Machine Image (AMI): http://www.turnkeylinux.org/docs/ec2
-.. _TurnKey Hub: https://hub.turnkeylinux.org
-.. _AMI codes: http://www.turnkeylinux.org/docs/ec2/ami
-.. _TKLBAM: http://www.turnkeylinux.org/tklbam
-.. _Auto-updated: http://www.turnkeylinux.org/docs/automatic-security-updates
-.. _HubDNS: http://www.turnkeylinux.org/dns
-.. _LVM: http://tldp.org/HOWTO/LVM-HOWTO/
-.. _shellinabox: http://code.google.com/p/shellinabox/
-.. _Webmin: http://webmin.com/
-.. _confconsole: https://github.com/turnkeylinux/confconsole
-.. _inithooks: https://github.com/turnkeylinux/inithooks
-.. _shell hooks: http://www.turnkeylinux.org/blog/generic-shell-hooks
+.. _TurnKey Core: http://www.turnkeylinux.org/core

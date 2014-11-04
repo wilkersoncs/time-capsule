@@ -1,2 +1,27 @@
 #!/bin/sh -ex
-echo "do nothing - core requires no post-package configuration commands"
+
+[ -f /etc/nsswitch.conf.orig ] || cp /etc/nsswitch.conf /etc/nsswitch.conf.orig
+cat /etc/nsswitch.conf.orig | sed -e "s/mdns4$/mdns4 mdns/" > /etc/nsswitch.conf
+
+[ -f /etc/avahi/services/afpd.service ] && cp /etc/avahi/services/afpd.service /etc/avahi/services/afpd.service.orig
+cat > /etc/avahi/services/afpd.service << EOF
+<?xml version="1.0" standalone='no'?><!--*-nxml-*--> <!DOCTYPE service-group SYSTEM "avahi-service.dtd"> <service-group><name replace-wildcards="yes">%h</name> <service><type>_afpovertcp._tcp</type><port>548</port></service> <service><type>_device-info._tcp</type><port>0</port><txt-record>model=TimeCapsule</txt-record></service> </service-group>
+EOF
+
+# Insert TimeCapsule share
+[ -f /etc/netatalk/AppleVolumes.default.orig ] || cp /etc/netatalk/AppleVolumes.default /etc/netatalk/AppleVolumes.default.orig
+cat /etc/netatalk/AppleVolumes.default.orig | sed -e "s/\# End/\\/TimeCapsule \"Time Capsule\"\\n\# End/" | sed -e "s/options\:upriv\,usedots/cnidscheme\:dbd options\:upriv\,usedots\,tm/" > /etc/netatalk/AppleVolumes.default
+mkdir /TimeCapsule
+chmod 777 /TimeCapsule
+
+if [ ! -f /etc/default/netatalk.orig ]; then
+  cp /etc/default/netatalk /etc/default/netatalk.orig
+  cat >> /etc/default/netatalk << EOF
+ATALKD_RUN=no
+PAPD_RUN=no
+CNID_METAD_RUN=yes
+AFPD_RUN=yes
+TIMELORD_RUN=no
+A2BOOT_RUN=no
+EOF
+fi # End of netatalk update
